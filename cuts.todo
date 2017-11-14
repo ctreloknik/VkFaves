@@ -1,0 +1,62 @@
+// >---------------------------< MainController.java #index() >---------------------------<
+
+    @RequestMapping("/")
+    public String index(ModelMap modelMap, @CookieValue("aId") String authorId, HttpServletRequest request, HttpServletResponse response) throws BoardLoadingException {
+        try {
+            // Проверка и установка Cookie с ID автора
+            if (authorId == null) {
+                String ipAddress = IpAddressUtil.getClientIpAddress(request);
+                Author author = authorService.getAuthorByIpAddress(ipAddress);
+                if (author == null) {
+                    AuthorDto newAuthorRecord = new AuthorDto();
+                    newAuthorRecord.setIpAddress(ipAddress);
+                    Author createdAuthorRecord = authorService.insertAuthor(newAuthorRecord);
+                    response.addCookie(new Cookie("aId", createdAuthorRecord.getId().toString()));
+                } else
+                    response.addCookie(new Cookie("aId", author.getId().toString()));
+            }
+            List<Board> boards = boardService.getAllBoards();
+            modelMap.addAttribute("appName", APPLICATION_NAME);
+            modelMap.addAttribute("boards", boards);
+        } catch (Exception e) {
+            LOGGER.trace("Ошибка при загрузке списка форумов на главную страницу", e);
+            throw new BoardLoadingException(e);
+        }
+        LOGGER.info("Главная страница подготовлена и загружена");
+        return "index";
+    }
+
+// >---------------------------< AuthorRestService.java #processUsernameRequest() >---------------------------<
+
+    /**
+     * Обрабатывает HTTP-запрос, приходящий на сервер, когда пользователь вводит никнейм в соответствующее поле.
+     * Устанавливает значение никнейма на полученное.
+     *
+     * @param nickname новое значение никнейма
+     * @param request объект пользовательского запроса
+     * @return объект ответа сервера с указанием статуса
+     */
+    public ResponseEntity<String> processUsernameRequest(@RequestParam String nickname, @CookieValue("aId") String authorId, HttpServletRequest request) {
+        try {
+            AuthorDto authorDto = new AuthorDto();
+            authorDto.setNickname(nickname);
+            Author userInstance = null;
+            // попытка найти пользователя по его IP-адресу
+            String ipAddress = IpAddressUtil.getClientIpAddress(request);
+            authorDto.setIpAddress(ipAddress);
+            userInstance = authorService.getAuthorByIpAddress(ipAddress);
+            if (userInstance == null) {
+                // попытка найти пользователя по его ID, сохранённому в cookie браузера
+                Long idCookie = Long.parseLong(authorId);
+                if (idCookie != null)
+                    authorService.updateAuthor(authorDto);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                authorService.updateAuthor(authorDto);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOGGER.warn("Ошибка при обновлении никнейма пользователя на {}:", nickname, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
