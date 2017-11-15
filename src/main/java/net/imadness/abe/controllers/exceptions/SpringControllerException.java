@@ -5,14 +5,21 @@ package net.imadness.abe.controllers.exceptions;
  */
 public class SpringControllerException extends Exception {
     public SpringControllerException() {
-        super();
     }
 
     public SpringControllerException(String message) {
         super(message);
     }
 
+    public SpringControllerException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public SpringControllerException(Throwable cause) {
         super(cause);
+    }
+
+    public SpringControllerException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }
