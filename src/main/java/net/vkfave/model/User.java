@@ -1,23 +1,17 @@
-package net.vkfave.dao;
+package net.vkfave.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 /**
  * Сущность, описывающая пользователя
  */
 @Entity
-public class UserDao implements Serializable {
+@Table(name = "system_user")
+public class User implements Serializable {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,12 +25,12 @@ public class UserDao implements Serializable {
     private Long vkId;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<AlbumDao> albums = new ArrayList<>();
+    private List<Album> albums = new ArrayList<>();
 
-    public UserDao() {
+    public User() {
     }
 
-    public UserDao(String name, Long vkId) {
+    public User(String name, Long vkId) {
         this.name = name;
         this.vkId = vkId;
     }

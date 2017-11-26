@@ -1,25 +1,15 @@
-package net.vkfave.dao;
+package net.vkfave.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 /**
  * Сущность, описывающая теги
  */
 @Entity
-public class TagDao implements Serializable {
+public class Tag implements Serializable {
     @Id
     @Column(name = "tag_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,16 +20,16 @@ public class TagDao implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserDao user;
+    private User user;
     
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable
-    private Set<FavoriteItemDao> faveItems;
+    private Set<FavoriteItem> faveItems;
 
-    public TagDao() {
+    public Tag() {
     }
 
-    public TagDao(String name, UserDao user) {
+    public Tag(String name, User user) {
         this.name = name;
         this.user = user;
     }
@@ -60,11 +50,11 @@ public class TagDao implements Serializable {
         this.name = name;
     }
     
-    public UserDao getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDao user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

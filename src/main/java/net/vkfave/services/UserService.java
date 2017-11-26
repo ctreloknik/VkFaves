@@ -1,6 +1,6 @@
 package net.vkfave.services;
 
-import net.vkfave.dao.UserDao;
+import net.vkfave.model.User;
 import net.vkfave.dto.UserDto;
 import net.vkfave.repositories.UserRepository;
 
@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Содержит CRUD-методы на основе использования EntryRepository, учитывающие специфику запроса,
- * приходящего со стороны клиента (использование пагинации).
- */
 @Service
 @Transactional
 public class UserService {
@@ -25,7 +21,7 @@ public class UserService {
      * @param id id записи
      * @return запись
      */
-    public UserDao getUserById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findOne(id);
     }
 
@@ -35,13 +31,13 @@ public class UserService {
      * @param userDto запись для сохранения
      * @return сохраненный объект
      */
-    public UserDao insertUser(UserDto userDto) {
+    public User insertUser(UserDto userDto) {
 //        Board board = boardRepository.findOne(entry.getBoardId());
 //        Entry result = entry.createEntry();
 //        result.setDate(new Date());
 //        result.setBoard(board);
 //        return entryRepository.save(result);
-    	return new UserDao(); // TODO заглушка
+    	return new User(); // TODO заглушка
     }
 
     /**
@@ -51,12 +47,12 @@ public class UserService {
      * @param id   id записи, которую нужно обновить
      * @return сохраненный объект
      */
-    public UserDao updateUser(UserDao user, Long id) {
+    public User updateUser(User user, Long id) {
 //        Entry dbEntry = userRepository.findOne(id);
 //        dbEntry.setContent(entry.getContent());
 //        dbEntry.setDate(entry.getDate());
 //        return entryRepository.save(dbEntry);
-    	return new UserDao();
+    	return new User();
     }
 
     /**

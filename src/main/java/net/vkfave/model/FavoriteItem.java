@@ -1,23 +1,15 @@
-package net.vkfave.dao;
+package net.vkfave.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 /**
  * Сущность, описывающая избранную запись
  */
 @Entity
-public class FavoriteItemDao implements Serializable {
+public class FavoriteItem implements Serializable {
     @Id
     @Column(name = "fave_item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,20 +26,20 @@ public class FavoriteItemDao implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserDao user;
+    private User user;
     
     @ManyToOne
     @JoinColumn(name = "album_id")
-    private AlbumDao album;
+    private Album album;
     
     @ManyToMany(mappedBy = "faveItems")
-    private Set<TagDao> tags;
+    private Set<Tag> tags;
 
-    public FavoriteItemDao() {
+    public FavoriteItem() {
     }
 
-    public FavoriteItemDao(String name, UserDao user, 
-    		AlbumDao album, String text, String imageUrl) {
+    public FavoriteItem(String name, User user,
+                        Album album, String text, String imageUrl) {
     	this.name = name;
     	this.user = user; 
 		this.album = album;
@@ -87,19 +79,19 @@ public class FavoriteItemDao implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public UserDao getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserDao user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public AlbumDao getAlbum() {
+	public Album getAlbum() {
 		return album;
 	}
 
-	public void setAlbum(AlbumDao album) {
+	public void setAlbum(Album album) {
 		this.album = album;
 	}
 
