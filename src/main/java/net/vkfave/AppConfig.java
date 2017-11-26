@@ -1,4 +1,4 @@
-package net.imadness.abe;
+package net.vkfave;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("net.imadness.abe")
+@ComponentScan("net.vkfave")
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Override

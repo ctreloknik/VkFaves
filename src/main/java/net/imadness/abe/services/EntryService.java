@@ -1,19 +1,16 @@
 package net.imadness.abe.services;
 
-import net.imadness.abe.dal.AuthorRepository;
-import net.imadness.abe.dal.BoardRepository;
+import java.util.Date;
+
 import net.imadness.abe.dal.EntryRepository;
-import net.imadness.abe.models.Board;
 import net.imadness.abe.models.Entry;
-import net.imadness.abe.models.dto.EntryDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * Содержит CRUD-методы на основе использования EntryRepository, учитывающие специфику запроса,
@@ -25,12 +22,6 @@ public class EntryService {
 
     @Autowired
     private EntryRepository entryRepository;
-
-    @Autowired
-    private BoardRepository boardRepository;
-
-    @Autowired
-    private AuthorRepository authorRepository;
 
     /**
      * Возвращает определённую страницу из {@link Entry}
@@ -101,5 +92,4 @@ public class EntryService {
         // TODO: извлечь из админского репозитория настройки, получить данные о пагинации
         return new PageRequest(pageNumber, 10);
     }
-
 }
