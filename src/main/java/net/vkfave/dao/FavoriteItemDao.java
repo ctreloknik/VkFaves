@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- * Сущность, описывающая пользователя
+ * Сущность, описывающая избранную запись
  */
 @Entity
 public class FavoriteItemDao implements Serializable {

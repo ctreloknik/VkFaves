@@ -1,7 +1,5 @@
 package net.imadness.abe.services;
 
-import java.util.Date;
-
 import net.imadness.abe.dal.EntryRepository;
 import net.imadness.abe.models.Entry;
 
