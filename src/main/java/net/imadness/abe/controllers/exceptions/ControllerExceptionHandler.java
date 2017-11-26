@@ -32,9 +32,9 @@ public class ControllerExceptionHandler {
      * @param exception исключение
      * @return ответ сервера с кодом ошибки 500 и сообщением об ошибке
      */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(RestException.class)
-    public ResponseEntity<String> handleRestException(Exception exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(RestException.class)
+//    public ResponseEntity<String> handleRestException(Exception exception) {
+//        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

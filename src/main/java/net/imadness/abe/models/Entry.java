@@ -21,22 +21,22 @@ public class Entry implements Serializable {
     @NotNull
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Author author;
-
-    @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
+//    @ManyToOne
+//    @JoinColumn(name = "author_id")
+//    private Author author;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "board_id")
+//    private Board board;
 
     public Entry() {
     }
 
-    public Entry(String content, Date date, Board board) {
-        this.content = content;
-        this.date = date;
-        this.board = board;
-    }
+//    public Entry(String content, Date date, Board board) {
+//        this.content = content;
+//        this.date = date;
+//        this.board = board;
+//    }
 
     public Long getId() {
         return id;
@@ -62,29 +62,29 @@ public class Entry implements Serializable {
         this.date = date;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    @Override
-    public String toString() {
-        return "Entry{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", date=" + date +
-                ", board=" + board +
-                '}';
-    }
+//    public Author getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(Author author) {
+//        this.author = author;
+//    }
+//
+//    public Board getBoard() {
+//        return board;
+//    }
+//
+//    public void setBoard(Board board) {
+//        this.board = board;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Entry{" +
+//                "id=" + id +
+//                ", content='" + content + '\'' +
+//                ", date=" + date +
+//                ", board=" + board +
+//                '}';
+//    }
 }

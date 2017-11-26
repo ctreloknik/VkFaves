@@ -30,8 +30,8 @@ public class UserDao implements Serializable {
     @Column(name = "vk_id")
     private Long vkId;
     
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<AlbumDao> entries = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AlbumDao> albums = new ArrayList<>();
 
     public UserDao() {
     }

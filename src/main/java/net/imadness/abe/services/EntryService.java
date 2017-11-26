@@ -50,15 +50,15 @@ public class EntryService {
      * @param entry запись для сохранения
      * @return сохраненный объект
      */
-    public Entry insertEntry(EntryDto entry) {
-        // TODO: автора передаём уже нормальным объектом из контроллера, т.к. там решается, как мы его достаём из БД
-        //Author author = authorRepository.findOne(entry.getAuthorId());
-        Board board = boardRepository.findOne(entry.getBoardId());
-        Entry result = entry.createEntry();
-        result.setDate(new Date());
-        result.setBoard(board);
-        return entryRepository.save(result);
-    }
+//    public Entry insertEntry(EntryDto entry) {
+//        // TODO: автора передаём уже нормальным объектом из контроллера, т.к. там решается, как мы его достаём из БД
+//        //Author author = authorRepository.findOne(entry.getAuthorId());
+//        Board board = boardRepository.findOne(entry.getBoardId());
+//        Entry result = entry.createEntry();
+//        result.setDate(new Date());
+//        result.setBoard(board);
+//        return entryRepository.save(result);
+//    }
 
     /**
      * Изменяет данные об уже существующей в БД записи
