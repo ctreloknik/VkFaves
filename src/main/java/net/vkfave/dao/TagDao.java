@@ -1,13 +1,17 @@
 package net.vkfave.dao;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +31,10 @@ public class TagDao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserDao user;
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable
+    private Set<FavoriteItemDao> faveItems;
 
     public TagDao() {
     }
