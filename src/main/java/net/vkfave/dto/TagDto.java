@@ -1,11 +1,10 @@
 package net.vkfave.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * Сущность, описывающая теги
+ * DTO для тегов
  */
 public class TagDto implements Serializable {
     private Long id;
@@ -50,6 +49,10 @@ public class TagDto implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "TagDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                '}';
     }
 }

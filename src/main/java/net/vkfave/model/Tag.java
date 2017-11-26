@@ -3,6 +3,7 @@ package net.vkfave.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -60,6 +61,29 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "Tag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                ", faveItems=" + faveItems +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tag)) return false;
+
+        Tag tag = (Tag) o;
+
+        if (id != null ? !id.equals(tag.id) : tag.id != null) return false;
+        if (name != null ? !name.equals(tag.name) : tag.name != null) return false;
+        if (user != null ? !user.equals(tag.user) : tag.user != null) return false;
+        return faveItems != null ? faveItems.equals(tag.faveItems) : tag.faveItems == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, user.getId());
     }
 }

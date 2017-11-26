@@ -3,6 +3,7 @@ package net.vkfave.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Сущность, описывающая альбомы
@@ -55,6 +56,27 @@ public class Album implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "Album{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user.getId() +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Album)) return false;
+
+        Album album = (Album) o;
+
+        if (id != null ? !id.equals(album.id) : album.id != null) return false;
+        if (name != null ? !name.equals(album.name) : album.name != null) return false;
+        return user != null ? user.equals(album.user) : album.user == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, user);
     }
 }
