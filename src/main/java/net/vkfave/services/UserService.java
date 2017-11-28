@@ -22,11 +22,11 @@ public class UserService {
     public User insertUser(UserDto userDto) {
         User user = new User();
         user.setName(userDto.getName());
-        user.setVkId(user.getVkId());
+        user.setVkId(userDto.getVkId());
         return userRepository.save(user);
     }
 
-    public User updateUser(User user, Long id) {
+    public User updateUser(UserDto user, Long id) {
     	User dbUser = userRepository.findOne(id);
     	dbUser.setName(user.getName());
     	dbUser.setVkId(user.getVkId());
