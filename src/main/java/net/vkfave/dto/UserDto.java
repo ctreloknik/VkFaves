@@ -1,11 +1,10 @@
 package net.vkfave.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * Сущность, описывающая пользователя
+ * DTO для пользователей
  */
 public class UserDto implements Serializable {
     private Long id;
@@ -49,6 +48,10 @@ public class UserDto implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "UserDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", vkId=" + vkId +
+                '}';
     }
 }

@@ -1,11 +1,10 @@
 package net.vkfave.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * Сущность, описывающая альбомы
+ * DTO для альбомов
  */
 public class AlbumDto implements Serializable {
     private Long id;
@@ -49,6 +48,10 @@ public class AlbumDto implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "AlbumDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                '}';
     }
 }

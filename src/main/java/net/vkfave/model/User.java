@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Сущность, описывающая пользователя
@@ -55,12 +56,36 @@ public class User implements Serializable {
         return vkId;
     }
 
-    public void setVkId(Long vk_id) {
+    public void setVkId(Long vkId) {
         this.vkId = vkId;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (vkId != null ? !vkId.equals(user.vkId) : user.vkId != null) return false;
+        return albums != null ? albums.equals(user.albums) : user.albums == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, vkId);
+    }
+
+    @Override
     public String toString() {
-        return "";
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", vkId=" + vkId +
+                ", albums=" + albums +
+                '}';
+
     }
 }

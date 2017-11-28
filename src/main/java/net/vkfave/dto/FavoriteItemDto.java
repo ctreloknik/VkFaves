@@ -1,11 +1,10 @@
 package net.vkfave.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * Сущность, описывающая избранную запись
+ * DTO для избранных записей
  */
 public class FavoriteItemDto implements Serializable {
     private Long id;
@@ -81,8 +80,15 @@ public class FavoriteItemDto implements Serializable {
 		this.albumId = albumId;
 	}
 
-	@Override
+    @Override
     public String toString() {
-        return "";
+        return "FavoriteItemDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", userId=" + userId +
+                ", albumId=" + albumId +
+                '}';
     }
 }

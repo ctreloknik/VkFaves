@@ -95,8 +95,15 @@ public class FavoriteItem implements Serializable {
 		this.album = album;
 	}
 
-	@Override
+    @Override
     public String toString() {
-        return "";
+        return "FavoriteItem{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", user=" + user.getId() +
+                ", album=" + album +
+                '}';
     }
 }
