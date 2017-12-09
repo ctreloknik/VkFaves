@@ -25,6 +25,11 @@ public class User implements Serializable {
     @Column(name = "vk_id")
     private Long vkId;
     
+    @NotNull
+    @Column(name = "token")
+    private String token;
+    
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Album> albums = new ArrayList<>();
 
@@ -60,7 +65,23 @@ public class User implements Serializable {
         this.vkId = vkId;
     }
 
-    @Override
+    public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;

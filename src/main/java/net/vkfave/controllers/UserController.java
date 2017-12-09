@@ -1,5 +1,7 @@
 package net.vkfave.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.vkfave.dto.UserDto;
 import net.vkfave.model.User;
 import net.vkfave.services.UserService;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +38,9 @@ public class UserController {
         }
     }
     
-    @PostMapping("/auth")
-    public ResponseEntity<String> auth(@RequestParam String access_token) {
-    	return ResponseEntity.ok(access_token);
-    }
+//    @RequestMapping("/auth")
+//    public ResponseEntity<String> auth(HttpServletRequest req) {
+//    	LOGGER.info("Токен");
+//    	return ResponseEntity.ok("ok");
+//    }
 }

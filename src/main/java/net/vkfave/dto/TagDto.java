@@ -39,11 +39,11 @@ public class TagDto implements Serializable {
         this.name = name;
     }
     
-    public Long getUser() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUser(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
