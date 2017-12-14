@@ -1,5 +1,8 @@
 package net.vkfave.controllers;
 
+import net.vkfave.services.VkService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +17,18 @@ import java.util.List;
  */
 @Controller
 public class MainController {
+    @Autowired
+    private VkService vkService;
+
+    @Value("${vk.app.id}")
+    private String vkAppId;
 
     /**
      * Устанавливаем файл resources/views/index.ftl в качестве главной страницы
      */
     @RequestMapping("/")
     public String indexPageRequestMapper(ModelMap modelMap) {
+        modelMap.addAttribute("vkAppId", vkAppId);
         return "index";
     }
 

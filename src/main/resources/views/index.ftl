@@ -12,6 +12,12 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script src="https://vk.com/js/api/openapi.js?150" type="text/javascript"></script>
     <script type="text/javascript" src="/static/js/main.e01ebe86.js"></script>
+    <script language="javascript">
+      VK.init({
+          apiId: ${vkAppId}
+      });
+    </script>
 </body>
 </html>

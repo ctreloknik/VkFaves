@@ -1,0 +1,3 @@
+export const VK_AUTH_REQUEST = 'VK_AUTH_REQUEST'
+export const VK_AUTH_SUCCESS = 'VK_AUTH_SUCCESS'
+export const VK_AUTH_FAILURE = 'VK_AUTH_FAILURE'
