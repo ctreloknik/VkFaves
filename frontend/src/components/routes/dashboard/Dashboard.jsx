@@ -22,7 +22,7 @@ export default class Dashboard extends Component {
   renderNonAuthorizedContent() {
     return (
       <div className="dashboard-non-authorized">
-        <Jumbotron className="dashboard-jumbotron">
+        <Jumbotron className="dashboard-non-authorized-jumbotron">
           <h2>Добро пожаловать в приложение VK Favorites</h2>
           <p><Button bsStyle="success">Начать работу</Button></p>
         </Jumbotron>
@@ -33,7 +33,7 @@ export default class Dashboard extends Component {
   renderAuthorizedContent() {
     return (
       <div className="dashboard-authorized">
-        {/* Прямо здесь и можно выводить основные веши */}
+        {/* Прямо здесь и можно выводить основные вещи */}
       </div>
     )
   }
