@@ -21,7 +21,7 @@ class Layout extends Component {
     return (
       <Router>
         <div className="layout">
-          <Navbar inverse>
+          <Navbar inverse className="layout-navbar">
             <Navbar.Header>
               <Navbar.Brand>
                 <a href="#">FK Favorites</a>
