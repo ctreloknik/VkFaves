@@ -54,7 +54,7 @@ class Dashboard extends Component {
     )
   }
 }
-
+0
 export default connect(state => ({
   vkUserData: state.vkUserData,
 }))(Dashboard)

@@ -1,7 +1,5 @@
 package net.vkfave.controllers;
 
-import net.vkfave.services.VkService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,8 +15,6 @@ import java.util.List;
  */
 @Controller
 public class MainController {
-    @Autowired
-    private VkService vkService;
 
     @Value("${vk.app.id}")
     private String vkAppId;

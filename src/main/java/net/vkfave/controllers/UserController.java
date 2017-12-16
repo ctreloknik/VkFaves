@@ -40,10 +40,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
-//    @RequestMapping("/auth")
-//    public ResponseEntity<String> auth(HttpServletRequest req) {
-//    	LOGGER.info("Токен");
-//    	return ResponseEntity.ok("ok");
-//    }
+
 }
