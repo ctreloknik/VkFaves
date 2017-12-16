@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import routes from './routes'
@@ -33,8 +33,12 @@ class Layout extends Component {
                   <a href="#">FK Favorites</a>
                 </Navbar.Brand>
               </Navbar.Header>
-              <NavItem href={Layout.codeVkAddr}>Code</NavItem>
-              <NavItem href={Layout.tokenVkAddr}>Token</NavItem>
+              <Navbar.Collapse>
+                <Nav>
+                  <NavItem className="tmp-important" href={Layout.codeVkAddr}>Code</NavItem>
+                  <NavItem className="tmp-important" href={Layout.tokenVkAddr}>Token</NavItem>
+                </Nav>
+              </Navbar.Collapse>
             </Navbar>
             <div className="container body">
               { routes.map(Layout.routeMapper) }
