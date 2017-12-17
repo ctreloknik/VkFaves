@@ -65,18 +65,23 @@ public class UserController {
 	}
 
 	@GetMapping("/auth")
-	public ResponseEntity<UserDto> authentificateUser(
+	public ResponseEntity<String> authentificateUser(
 			@RequestParam String code) {
 		try {
 			//if (this.code == null) {
 				LOGGER.info("Code", code);
+				
+				// TODO: 
+				System.out.println(code);
 				//this.code = code;
 				URI uri = new URI(
 						"https://oauth.vk.com/access_token?client_id=6226858&client_secret=LnydhpxvBlM5NzvQSux3&redirect_uri=https://vk-faves.herokuapp.com/auth/finish&code="
 								+ code);
 				RestTemplate restTemplate = new RestTemplate();
 				String result = restTemplate.getForObject(uri, String.class);
+				System.out.println(code);
 				LOGGER.info("result", result);
+				
 //			} else {
 //				Gson gson = new Gson(); 
 //				gson.toJson(body);
@@ -86,7 +91,7 @@ public class UserController {
 
 			// User user = userService.getUserById(id);
 			// UserDto userDto = new UserDto(user.getName(), user.getVkId());
-			return ResponseEntity.ok(new UserDto());
+			return ResponseEntity.ok("Responce: " + result);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.build();
