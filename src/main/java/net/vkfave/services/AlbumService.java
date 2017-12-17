@@ -2,7 +2,6 @@ package net.vkfave.services;
 
 import net.vkfave.dto.AlbumDto;
 import net.vkfave.model.Album;
-import net.vkfave.model.Tag;
 import net.vkfave.repositories.AlbumRepository;
 import net.vkfave.repositories.UserRepository;
 

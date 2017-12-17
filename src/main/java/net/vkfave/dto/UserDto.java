@@ -15,8 +15,6 @@ public class UserDto implements Serializable {
 
     private Long vkId;
     
-    private String token; // TODO: Временно, до решений со стороны frontend
-    
     public UserDto() {
     }
 
@@ -48,14 +46,6 @@ public class UserDto implements Serializable {
     public void setVkId(Long vkId) {
         this.vkId = vkId;
     }
-
-    public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	@Override
     public String toString() {
