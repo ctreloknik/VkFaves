@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Jumbotron } from 'react-bootstrap'
 import { handleVkLogin } from "../../../core/api/vk-service";
 import { connect } from 'react-redux'
 import { isEqual, isEmpty } from 'lodash'
+import NonAuthorizedContent from "./NonAuthorizedContent";
 
 import './Dashboard.css';
 
@@ -31,17 +31,6 @@ class Dashboard extends Component {
     handleVkLogin()
   }
 
-  renderNonAuthorizedContent() {
-    return (
-      <div className="dashboard-non-authorized">
-        <Jumbotron className="dashboard-non-authorized-jumbotron">
-          <h2>Добро пожаловать в приложение VK Favorites</h2>
-          <p><Button bsStyle="success" onClick={() => this.handleAuth()}>Начать работу</Button></p>
-        </Jumbotron>
-      </div>
-    )
-  }
-
   renderAuthorizedContent() {
     console.log(this.props)
     let username = this.props.userData.first_name
@@ -55,7 +44,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard">
-        { !this.state.authorized && this.renderNonAuthorizedContent() }
+        { !this.state.authorized && <NonAuthorizedContent handleAuthCallback={this.handleAuth}/> }
         { this.state.authorized && this.renderAuthorizedContent() }
       </div>
     )
