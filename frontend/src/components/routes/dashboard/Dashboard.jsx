@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Jumbotron } from 'react-bootstrap'
 import { handleVkLogin } from "../../../core/api/vk-service";
 import { connect } from 'react-redux'
+import { isEqual, isEmpty } from 'lodash'
 
 import './Dashboard.css';
 
@@ -14,6 +15,12 @@ class Dashboard extends Component {
   initState() {
     return {
       authorized: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props, nextProps) && !isEmpty(nextProps.userData)) {
+      this.setState({ authorized: true })
     }
   }
 
@@ -36,10 +43,11 @@ class Dashboard extends Component {
   }
 
   renderAuthorizedContent() {
-    let username = this.props.vkUserData.first_name
+    console.log(this.props)
+    let username = this.props.userData.first_name
     return (
       <div className="dashboard-authorized">
-        Добро пожаловать, {username}
+        <h3>Добро пожаловать, {username}</h3>
       </div>
     )
   }
@@ -53,7 +61,7 @@ class Dashboard extends Component {
     )
   }
 }
-0
+
 export default connect(state => ({
-  vkUserData: state.vkUserData,
+  userData: state.vkUserData.userData,
 }))(Dashboard)
