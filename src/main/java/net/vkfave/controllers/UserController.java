@@ -1,8 +1,5 @@
 package net.vkfave.controllers;
 
-import java.net.URI;
-import java.util.Scanner;
-
 import net.vkfave.dto.UserDto;
 import net.vkfave.model.User;
 import net.vkfave.services.UserService;
@@ -19,13 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import com.github.scribejava.apis.VkontakteApi;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.oauth.OAuth20Service;
-import com.google.gson.Gson;
 
 @RestController
 public class UserController {
@@ -41,8 +31,6 @@ public class UserController {
 	@Value("${vk.app.id}")
 	private String vkAppSecret;
 
-	private String code;
-
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> registerNewUser(@RequestBody UserDto userDto) {
 		try {
@@ -57,7 +45,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/user/{id}")
+	@GetMapping("/api/user/{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
 		try {
 			User user = userService.getUserById(id);
@@ -69,91 +57,9 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/auth")
-	public ResponseEntity<String> authentificateUser(@RequestParam String code) {
+	@GetMapping("/api/auth")
+	public ResponseEntity<String> authentificateUser(@RequestParam String access_token, @RequestParam Long user_id) {
 		try {
-			final String clientId = "6226858";
-			final String clientSecret = "LnydhpxvBlM5NzvQSux3";
-			// final OAuth20Service service = new ServiceBuilder(clientId)
-			// .apiSecret(clientSecret).scope("friends,offline")
-			// .callback("https://vk-faves.herokuapp.com/auth")
-			// .build(VkontakteApi.instance());
-			// final String authorizationUrl = service.getAuthorizationUrl();
-			// final Scanner in = new Scanner(System.in);
-			// final OAuth2AccessToken accessToken =
-			// service.getAccessToken(code);
-
-			final OAuth20Service service = new ServiceBuilder(clientId)
-					.apiSecret(clientSecret).scope("wall,offline")
-					// replace with desired scope
-					.callback("https://vk-faves.herokuapp.com/auth/callback")
-					.build(VkontakteApi.instance());
-			final Scanner in = new Scanner(System.in);
-
-			System.out.println();
-
-			// Obtain the Authorization URL
-			System.out.println("Fetching the Authorization URL...");
-			final String authorizationUrl = service.getAuthorizationUrl();
-			System.out.println("Got the Authorization URL!");
-			System.out.println("Now go and authorize ScribeJava here:");
-			System.out.println(authorizationUrl);
-			System.out.println("And paste the authorization code here");
-			System.out.print(">>");
-			final String codeC = in.nextLine();
-			System.out.println();
-
-			// Trade the Request Token and Verfier for the Access Token
-			System.out
-					.println("Trading the Request Token for an Access Token...");
-			final OAuth2AccessToken accessToken = service.getAccessToken(codeC);
-			System.out.println("Got the Access Token!");
-
-			// if (this.code == null) {
-			// LOGGER.info("Code", code);
-			//
-			// // TODO:
-			// System.out.println(code);
-			// //this.code = code;
-			// URI uri = new URI(
-			// "https://oauth.vk.com/access_token?client_id=6226858&client_secret=LnydhpxvBlM5NzvQSux3&redirect_uri=https://vk-faves.herokuapp.com/auth/finish&code="
-			// + code);
-			// RestTemplate restTemplate = new RestTemplate();
-			// String result = restTemplate.getForObject(uri, String.class);
-			// System.out.println(code);
-			// LOGGER.info("result", result);
-
-			// } else {
-			// Gson gson = new Gson();
-			// gson.toJson(body);
-			// String token = gson.fromJson("access_token", String.class);
-			// LOGGER.info("Token", token);
-			// }
-
-			// User user = userService.getUserById(id);
-			// UserDto userDto = new UserDto(user.getName(), user.getVkId());
-			return ResponseEntity.ok("Responce: ");
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.build();
-		}
-	}
-
-	// @RequestBody String body
-	@GetMapping("/auth/callback")
-	public ResponseEntity<String> authentificateFinishUser(
-			@RequestBody String body) {
-		try {
-
-			// } else {
-			// Gson gson = new Gson();
-			// gson.toJson(body);
-			// String token = gson.fromJson("access_token", String.class);
-			// LOGGER.info("Token", token);
-			// }
-
-			// User user = userService.getUserById(id);
-			// UserDto userDto = new UserDto(user.getName(), user.getVkId());
 			return ResponseEntity.ok("ok");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
