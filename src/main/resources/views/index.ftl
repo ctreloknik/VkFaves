@@ -7,17 +7,17 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/favicon.ico">
     <title>VK Favorites</title>
-    <link href="/static/css/main.182adf3c.css" rel="stylesheet">
+    <link href="/static/css/main.80249939.css" rel="stylesheet">
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script src="https://vk.com/js/api/openapi.js?150" type="text/javascript"></script>
-    <script type="text/javascript" src="/static/js/main.b91adf08.js"></script>
-    <script language="javascript">
-      VK.init({
-          apiId: ${vkAppId}
-      });
+    <script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        VK.init({ apiId: ${vkAppId} })
+      }
     </script>
+    <script type="text/javascript" src="/static/js/main.3e5bc856.js"></script>
 </body>
 </html>

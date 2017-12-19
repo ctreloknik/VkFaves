@@ -39,8 +39,7 @@ class Dashboard extends Component {
     let username = this.props.vkUserData.first_name
     return (
       <div className="dashboard-authorized">
-        {/* Прямо здесь и можно выводить основные вещи */}
-
+        Добро пожаловать, {username}
       </div>
     )
   }
