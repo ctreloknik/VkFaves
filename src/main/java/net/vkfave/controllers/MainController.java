@@ -26,7 +26,7 @@ public class MainController {
     @RequestMapping("/")
     public String indexPageRequestMapper(ModelMap modelMap, @CookieValue(defaultValue = "none") String accessToken) {
         modelMap.addAttribute("vkAppId", vkAppId);
-        modelMap.addAttribute("token", "none".equals(accessToken) ? null : accessToken);
+        modelMap.addAttribute("token", accessToken);
         return "index";
     }
 
