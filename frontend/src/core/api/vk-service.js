@@ -15,7 +15,7 @@ export function handleVkLogin() {
       } else {
         store.dispatch({type: VkAuthActions.VK_AUTH_FAILURE, payload: new Error('Ошибка авторизации')})
       }
-    }, 2)
+    }, 2 | 4 | 2048)
   } catch (err) {
     store.dispatch({ type: VkAuthActions.VK_AUTH_FAILURE, payload: err })
   }

@@ -1,9 +1,9 @@
 package net.vkfave.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,22 +14,22 @@ import java.util.Objects;
 @Table(name = "system_user")
 public class User implements Serializable {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @Column(name = "name")
     private String name;
 
-    @NotNull
-    @Column(name = "vk_id")
+    @Column(name = "vk_id", nullable = false)
     private Long vkId;
-    
-    @NotNull
-    @Column(name = "token")
+
+    @Column(name = "token", nullable = false)
     private String token;
-    
-    
+
+    @Column(name = "last_auth_date")
+    private Date lastAuthDate;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Album> albums = new ArrayList<>();
 
@@ -81,7 +81,15 @@ public class User implements Serializable {
 		this.albums = albums;
 	}
 
-	@Override
+    public Date getLastAuthDate() {
+        return lastAuthDate;
+    }
+
+    public void setLastAuthDate(Date lastAuthDate) {
+        this.lastAuthDate = lastAuthDate;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;

@@ -1,7 +1,5 @@
 package net.vkfave.dto;
 
-import javax.validation.constraints.NotNull;
-
 import java.io.Serializable;
 
 /**
@@ -9,14 +7,11 @@ import java.io.Serializable;
  */
 public class UserDto implements Serializable {
     private Long id;
-
-    @NotNull
     private String name;
-
+    private String accessToken;
     private Long vkId;
     
-    public UserDto() {
-    }
+    public UserDto() { }
 
     public UserDto(String name, Long vkId) {
         this.name = name;
@@ -39,20 +34,19 @@ public class UserDto implements Serializable {
         this.name = name;
     }
     
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     public Long getVkId() {
         return vkId;
     }
 
     public void setVkId(Long vkId) {
         this.vkId = vkId;
-    }
-
-	@Override
-    public String toString() {
-        return "UserDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", vkId=" + vkId +
-                '}';
     }
 }

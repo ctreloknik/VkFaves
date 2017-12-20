@@ -3,6 +3,7 @@ package net.vkfave.controllers;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +24,18 @@ public class MainController {
      * Устанавливаем файл resources/views/index.ftl в качестве главной страницы
      */
     @RequestMapping("/")
-    public String indexPageRequestMapper(ModelMap modelMap) {
+    public String indexPageRequestMapper(ModelMap modelMap, @CookieValue(defaultValue = "none") String accessToken) {
         modelMap.addAttribute("vkAppId", vkAppId);
+        modelMap.addAttribute("token", "none".equals(accessToken) ? null : accessToken);
         return "index";
+    }
+
+    /**
+     * Маппинг для страницы редиректа ВК после авторизации
+     */
+    @RequestMapping("/auth")
+    public String authPage() {
+        return "auth";
     }
 
     /**
