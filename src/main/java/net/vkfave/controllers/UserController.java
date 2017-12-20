@@ -3,6 +3,7 @@ package net.vkfave.controllers;
 import net.vkfave.dto.UserDto;
 import net.vkfave.model.User;
 import net.vkfave.services.UserService;
+import net.vkfave.util.ResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import static net.vkfave.util.ResponseWrapper.wrap;
 
 @RestController
 @RequestMapping("/api")
@@ -29,15 +32,17 @@ public class UserController {
 	private String vkAppSecret;
 
     @GetMapping("/auth")
-    public ResponseEntity<String> authenticateUser(@RequestParam String accessToken, @RequestParam Long userId,
-                                                   HttpServletResponse response) {
+    public ResponseEntity<ResponseWrapper<String>> authenticateUser(@RequestParam String accessToken, @RequestParam Long userId,
+                                                                    HttpServletResponse response) {
         try {
             LOGGER.info("Запрос на аутентификацию пользователя {}. Токен: {}", userId, accessToken);
             userService.createOrUpdateUser(userId, accessToken);
             response.addCookie(new Cookie("vk_token", accessToken));
-            return ResponseEntity.ok("Authentication success");
+            return ResponseEntity.ok(new ResponseWrapper<>("Authentication success"));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            LOGGER.error("Ошибка при попытке авторизовать пользователя {}", userId);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(wrap("Ошибка при попытке авторизовать пользователя " + userId, e));
         }
     }
 
