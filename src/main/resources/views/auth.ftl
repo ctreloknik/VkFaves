@@ -30,7 +30,8 @@
                     token: token,
                     vkId: userId,
                     name: user.first_name + ' ' + user.last_name
-                })
+                }),
+                headers: { 'Content-Type': 'application/json' }
             })
             .then(function () {
                 window.location.replace('/')
