@@ -33,7 +33,7 @@ public class UserController {
     public ResponseEntity authenticateUser(@RequestBody UserDto userDto, HttpServletResponse response) {
         try {
             LOGGER.info("Запрос на аутентификацию пользователя {}. Токен: {}", userDto.getVkId(), userDto.getToken());
-            UserDto result = new UserDto(userService.createOrUpdateUser(userDto.getVkId(), userDto.getToken()));
+            UserDto result = new UserDto(userService.createOrUpdateUser(userDto));
             response.addCookie(new Cookie("vk_token", userDto.getToken()));
             return ResponseEntity.ok(new ResponseWrapper<>(result, "Успешная авторизация"));
         } catch (Exception e) {

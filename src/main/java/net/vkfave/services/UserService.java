@@ -22,21 +22,20 @@ public class UserService {
 
     /**
      * Создаёт или обновляет пользователя, если он уже существует
-     * @param vkId        id пользователя в ВК
-     * @param accessToken токен доступа API ВК
      * @return обновлённый экземпляр пользователя
      */
-    public User createOrUpdateUser(Long vkId, String accessToken) {
-        User existingUser = userRepository.findByVkId(vkId);
+    public User createOrUpdateUser(UserDto userDto) {
+        User existingUser = userRepository.findByVkId(userDto.getId());
         if (existingUser == null) {
             User newUser = new User();
-            newUser.setToken(accessToken);
-            newUser.setVkId(vkId);
+            newUser.setToken(userDto.getToken());
+            newUser.setVkId(userDto.getVkId());
+            newUser.setName(userDto.getName());
             newUser.setLastAuthDate(new Date());
             return userRepository.save(newUser);
         }
-        if (!existingUser.getToken().equals(accessToken)) {
-            existingUser.setToken(accessToken);
+        if (!existingUser.getToken().equals(userDto.getToken())) {
+            existingUser.setToken(userDto.getToken());
         }
         existingUser.setLastAuthDate(new Date());
         return userRepository.save(existingUser);
