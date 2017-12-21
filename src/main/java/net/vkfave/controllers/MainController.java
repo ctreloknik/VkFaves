@@ -34,7 +34,8 @@ public class MainController {
      * Маппинг для страницы редиректа ВК после авторизации
      */
     @RequestMapping("/auth")
-    public String authPage() {
+    public String authPage(ModelMap modelMap) {
+        modelMap.addAttribute("vkAppId", vkAppId);
         return "auth";
     }
 

@@ -1,5 +1,7 @@
 package net.vkfave.dto;
 
+import net.vkfave.model.User;
+
 import java.io.Serializable;
 
 /**
@@ -8,14 +10,20 @@ import java.io.Serializable;
 public class UserDto implements Serializable {
     private Long id;
     private String name;
-    private String accessToken;
     private Long vkId;
+    private String token;
     
     public UserDto() { }
 
     public UserDto(String name, Long vkId) {
         this.name = name;
         this.vkId = vkId;
+    }
+
+    public UserDto(User user) {
+        this.name = user.getName();
+        this.vkId = user.getVkId();
+        this.id = user.getId();
     }
 
     public Long getId() {
@@ -33,14 +41,6 @@ public class UserDto implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
 
     public Long getVkId() {
         return vkId;
@@ -48,5 +48,13 @@ public class UserDto implements Serializable {
 
     public void setVkId(Long vkId) {
         this.vkId = vkId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

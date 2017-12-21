@@ -12,9 +12,9 @@ public class ResponseWrapper<ResponseType> {
         return new ResponseWrapper<ResponseType>(payload, null);
     }
 
-    public static <ResponseType> ResponseWrapper wrap(String message, Throwable throwable) {
-        String msg = message == null ? "" : message + "\n";
-        return wrap(msg + throwable.getMessage());
+    public static <ResponseType> ResponseWrapper wrap(Throwable throwable) {
+        //String msg = message == null ? "" : message + "\n";
+        return wrap(throwable.getMessage());
     }
 
     public ResponseWrapper(ResponseType payload) {

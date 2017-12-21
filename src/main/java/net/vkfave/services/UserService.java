@@ -22,15 +22,16 @@ public class UserService {
 
     /**
      * Создаёт или обновляет пользователя, если он уже существует
-     * @param userId      id пользователя в ВК
+     * @param vkId        id пользователя в ВК
      * @param accessToken токен доступа API ВК
      * @return обновлённый экземпляр пользователя
      */
-    public User createOrUpdateUser(Long userId, String accessToken) {
-        User existingUser = userRepository.findByVkId(userId);
+    public User createOrUpdateUser(Long vkId, String accessToken) {
+        User existingUser = userRepository.findByVkId(vkId);
         if (existingUser == null) {
             User newUser = new User();
             newUser.setToken(accessToken);
+            newUser.setVkId(vkId);
             newUser.setLastAuthDate(new Date());
             return userRepository.save(newUser);
         }
@@ -45,7 +46,7 @@ public class UserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setVkId(userDto.getVkId());
-        user.setToken(userDto.getAccessToken());
+        user.setToken(userDto.getToken());
         return userRepository.save(user);
     }
 
@@ -53,7 +54,7 @@ public class UserService {
     	User dbUser = userRepository.findOne(user.getId());
     	dbUser.setName(user.getName());
     	dbUser.setVkId(user.getVkId());
-    	dbUser.setToken(user.getAccessToken());
+    	dbUser.setToken(user.getToken());
     	return userRepository.save(dbUser);
     }
 

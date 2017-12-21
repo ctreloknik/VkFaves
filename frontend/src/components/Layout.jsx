@@ -8,7 +8,6 @@ import store from "../store";
 import './Layout.css';
 
 class Layout extends Component {
-  static codeVkAddr = 'https://oauth.vk.com/authorize?client_id=6226858&display=page&redirect_uri=https://vk-faves.herokuapp.com/auth&scope=friends,offline&response_type=code&v=5.69'
   static tokenVkAddr = 'https://oauth.vk.com/authorize?client_id=6226858&display=page&redirect_uri=https://vk-faves.herokuapp.com/auth&scope=friends,offline&response_type=token&v=5.69'
 
   static routeMapper = (route, i) => (
@@ -35,7 +34,6 @@ class Layout extends Component {
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav>
-                  <NavItem className="tmp-important" href={Layout.codeVkAddr}>Code</NavItem>
                   <NavItem className="tmp-important" href={Layout.tokenVkAddr}>Token</NavItem>
                 </Nav>
               </Navbar.Collapse>

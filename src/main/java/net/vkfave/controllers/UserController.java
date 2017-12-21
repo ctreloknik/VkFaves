@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-import static net.vkfave.util.ResponseWrapper.wrap;
-
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -31,18 +29,16 @@ public class UserController {
 	@Value("${vk.app.id}")
 	private String vkAppSecret;
 
-    @GetMapping("/auth")
-    public ResponseEntity<ResponseWrapper<String>> authenticateUser(@RequestParam String accessToken, @RequestParam Long userId,
-                                                                    HttpServletResponse response) {
+    @PutMapping("/auth")
+    public ResponseEntity authenticateUser(@RequestBody UserDto userDto, HttpServletResponse response) {
         try {
-            LOGGER.info("Запрос на аутентификацию пользователя {}. Токен: {}", userId, accessToken);
-            userService.createOrUpdateUser(userId, accessToken);
-            response.addCookie(new Cookie("vk_token", accessToken));
-            return ResponseEntity.ok(new ResponseWrapper<>("Authentication success"));
+            LOGGER.info("Запрос на аутентификацию пользователя {}. Токен: {}", userDto.getVkId(), userDto.getToken());
+            UserDto result = new UserDto(userService.createOrUpdateUser(userDto.getVkId(), userDto.getToken()));
+            response.addCookie(new Cookie("vk_token", userDto.getToken()));
+            return ResponseEntity.ok(new ResponseWrapper<>(result, "Успешная авторизация"));
         } catch (Exception e) {
-            LOGGER.error("Ошибка при попытке авторизовать пользователя {}", userId);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(wrap("Ошибка при попытке авторизовать пользователя " + userId, e));
+            LOGGER.error("Ошибка при попытке авторизовать пользователя {}", userDto.getVkId());
+            return new ResponseEntity<>(new ResponseWrapper<>(null, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
