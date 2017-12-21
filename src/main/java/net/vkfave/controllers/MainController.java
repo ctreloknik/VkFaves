@@ -24,9 +24,12 @@ public class MainController {
      * Устанавливаем файл resources/views/index.ftl в качестве главной страницы
      */
     @RequestMapping("/")
-    public String indexPageRequestMapper(ModelMap modelMap, @CookieValue(defaultValue = "none") String accessToken) {
+    public String indexPageRequestMapper(@CookieValue(defaultValue = "none") String accessToken,
+                                         @CookieValue(defaultValue = "none") String vkUserId,
+                                         ModelMap modelMap) {
         modelMap.addAttribute("vkAppId", vkAppId);
         modelMap.addAttribute("token", accessToken);
+        modelMap.addAttribute("vkUserId", vkUserId);
         return "index";
     }
 

@@ -15,6 +15,7 @@
     <script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
     <script type="text/javascript">
       window.vkToken = '${token}'
+      window.vkAppId = '${vkUserId}'
       window.onload = function () {
         VK.init({ apiId: ${vkAppId} })
       }

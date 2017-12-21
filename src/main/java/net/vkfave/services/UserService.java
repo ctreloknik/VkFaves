@@ -3,9 +3,11 @@ package net.vkfave.services;
 import net.vkfave.dto.UserDto;
 import net.vkfave.model.User;
 import net.vkfave.repositories.UserRepository;
+import net.vkfave.services.exception.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -39,6 +41,25 @@ public class UserService {
         }
         existingUser.setLastAuthDate(new Date());
         return userRepository.save(existingUser);
+    }
+
+    /**
+     * Метод валидации пользователя (!). Используется во всех (?!) методах API
+     * @param accessToken токен
+     * @param vkId ID пользователя ВК
+     * @throws UserNotValidException Исключение валидации пользователя
+     */
+    public void checkUser(String accessToken, Long vkId) throws UserNotValidException {
+        if (StringUtils.isEmpty(accessToken) || vkId == null) {
+            throw new UserNotValidException("Cookie-параметры accessToken и vkId не должны быть пустыми");
+        }
+        User user = userRepository.findByVkId(vkId);
+        if (user == null) {
+            throw new UserNotValidException("Пользователь [id=" + vkId + "] не найден");
+        }
+        if (!accessToken.equals(user.getToken())) {
+            throw new UserNotValidException("Некорректное значение токена доступа для пользователя [id=" + vkId + "]");
+        }
     }
 
     public User insertUser(UserDto userDto) {
