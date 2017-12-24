@@ -26,9 +26,6 @@ public class UserController {
 	@Value("${vk.app.id}")
 	private String vkAppId;
 
-	@Value("${vk.app.id}")
-	private String vkAppSecret;
-
     @PutMapping("/auth")
     public ResponseEntity authenticateUser(@RequestBody UserDto userDto, HttpServletResponse response) {
         try {

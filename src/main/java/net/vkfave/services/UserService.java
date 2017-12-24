@@ -27,7 +27,7 @@ public class UserService {
      * @return обновлённый экземпляр пользователя
      */
     public User createOrUpdateUser(UserDto userDto) {
-        User existingUser = userRepository.findByVkId(userDto.getId());
+        User existingUser = userRepository.findByVkId(userDto.getVkId());
         if (existingUser == null) {
             User newUser = new User();
             newUser.setToken(userDto.getToken());
