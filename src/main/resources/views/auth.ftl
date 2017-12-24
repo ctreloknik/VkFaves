@@ -34,7 +34,7 @@
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(function () {
-                window.location.replace('/')
+                window.location.replace('/?accessToken=' + token + '&vkUserId=' + userId)
             })
         }, 2)
     }

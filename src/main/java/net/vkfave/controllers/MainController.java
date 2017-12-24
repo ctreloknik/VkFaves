@@ -5,9 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +14,7 @@ import java.util.List;
  */
 @Controller
 public class MainController {
+    private static final String AUTH_PAGE = "/auth";
 
     @Value("${vk.app.id}")
     private String vkAppId;
@@ -24,26 +23,22 @@ public class MainController {
      * Устанавливаем файл resources/views/index.ftl в качестве главной страницы
      */
     @RequestMapping("/")
-    public String indexPageRequestMapper(@CookieValue(name = "accessToken", required = false) String accessToken,
-                                         @CookieValue(name = "vkUserId", required = false)    String vkUserId,
-                                         @RequestParam(name = "clr", required = false) String clearFlag,
-                                         ModelMap modelMap, HttpServletRequest req, HttpServletResponse resp) {
-        if (clearFlag != null) {
-            for (Cookie cookie : req.getCookies()) {
-                cookie.setMaxAge(0);
-                resp.addCookie(cookie);
-            }
-        }
+    public String indexPageRequestMapper(@RequestParam(name = "accessToken", required = false) String accessToken,
+                                         @RequestParam(name = "vkUserId",    required = false) String vkUserId,
+                                         ModelMap modelMap, HttpServletRequest request) {
         modelMap.addAttribute("vkAppId", vkAppId);
-        modelMap.addAttribute("token", accessToken != null ? accessToken : "none");
-        modelMap.addAttribute("vkUserId", vkUserId != null ? vkUserId : "none");
+        String referer = request.getHeader("Referer");
+        if (referer != null && referer.contains(AUTH_PAGE)) {
+            modelMap.addAttribute("token", accessToken != null ? accessToken : "none");
+            modelMap.addAttribute("vkUserId", vkUserId != null ? vkUserId : "none");
+        }
         return "index";
     }
 
     /**
      * Маппинг для страницы редиректа ВК после авторизации
      */
-    @RequestMapping("/auth")
+    @RequestMapping(AUTH_PAGE)
     public String authPage(ModelMap modelMap) {
         modelMap.addAttribute("vkAppId", vkAppId);
         return "auth";
