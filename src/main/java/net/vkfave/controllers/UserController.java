@@ -31,7 +31,8 @@ public class UserController {
         try {
             LOGGER.info("Запрос на аутентификацию пользователя {}. Токен: {}", userDto.getVkId(), userDto.getToken());
             UserDto result = new UserDto(userService.createOrUpdateUser(userDto));
-            response.addCookie(new Cookie("vk_token", userDto.getToken()));
+            response.addCookie(new Cookie("accessToken", userDto.getToken()));
+            response.addCookie(new Cookie("vkUserId", userDto.getVkId().toString()));
             return ResponseEntity.ok(new ResponseWrapper<>(result, "Успешная авторизация"));
         } catch (Exception e) {
             LOGGER.error("Ошибка при попытке авторизовать пользователя {}", userDto.getVkId());
