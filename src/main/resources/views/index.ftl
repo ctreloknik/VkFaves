@@ -20,6 +20,6 @@
         VK.init({ apiId: ${vkAppId} })
       }
     </script>
-    <script type="text/javascript" src="/static/js/main.3e5bc856.js"></script>
+    <script type="text/javascript" src="/static/js/main.b09db801.js"></script>
 </body>
 </html>
