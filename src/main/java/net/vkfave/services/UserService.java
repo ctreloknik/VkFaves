@@ -49,7 +49,7 @@ public class UserService {
      * @param vkId ID пользователя ВК
      * @throws UserNotValidException Исключение валидации пользователя
      */
-    public void checkUser(String accessToken, Long vkId) throws UserNotValidException {
+    public User checkUser(String accessToken, Long vkId) throws UserNotValidException {
         if (StringUtils.isEmpty(accessToken) || vkId == null) {
             throw new UserNotValidException("Cookie-параметры accessToken и vkId не должны быть пустыми");
         }
@@ -60,6 +60,7 @@ public class UserService {
         if (!accessToken.equals(user.getToken())) {
             throw new UserNotValidException("Некорректное значение токена доступа для пользователя [id=" + vkId + "]");
         }
+        return user;
     }
 
     public User insertUser(UserDto userDto) {

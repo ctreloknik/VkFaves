@@ -14,14 +14,18 @@
     <div id="root"></div>
     <script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
     <script type="text/javascript">
-      <#if token?? && vkUserId??>
-        window.vkToken = '${token}'
-        window.vkUserId = '${vkUserId}'
+      <#if user??>
+        window.primaryUserData = {
+          vkToken:  '${user.token}',
+          vkUserId: '${user.vkId}',
+          name: '${user.name}'
+          id: '${user.id}'
+        }
       </#if>
       window.onload = function () {
         VK.init({ apiId: ${vkAppId} })
       }
     </script>
-    <script type="text/javascript" src="/static/js/main.b09db801.js"></script>
+    <script type="text/javascript" src="/static/js/main.8efcb4ce.js"></script>
 </body>
 </html>

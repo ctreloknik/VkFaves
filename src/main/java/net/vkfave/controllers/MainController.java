@@ -1,5 +1,9 @@
 package net.vkfave.controllers;
 
+import net.vkfave.dto.UserDto;
+import net.vkfave.model.User;
+import net.vkfave.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +20,9 @@ import java.util.List;
 public class MainController {
     private static final String AUTH_PAGE = "/auth";
 
+    @Autowired
+    private UserService userService;
+
     @Value("${vk.app.id}")
     private String vkAppId;
 
@@ -24,13 +31,17 @@ public class MainController {
      */
     @RequestMapping("/")
     public String indexPageRequestMapper(@RequestParam(name = "accessToken", required = false) String accessToken,
-                                         @RequestParam(name = "vkUserId",    required = false) String vkUserId,
+                                         @RequestParam(name = "vkUserId",    required = false) Long vkUserId,
                                          ModelMap modelMap, HttpServletRequest request) {
         modelMap.addAttribute("vkAppId", vkAppId);
         String referer = request.getHeader("Referer");
         if (referer != null && referer.contains(AUTH_PAGE)) {
-            modelMap.addAttribute("token", accessToken != null ? accessToken : "none");
-            modelMap.addAttribute("vkUserId", vkUserId != null ? vkUserId : "none");
+            try {
+                User currentUser = userService.checkUser(accessToken, vkUserId);
+                modelMap.addAttribute("user", new UserDto(currentUser));
+            } catch (Exception e) {
+                modelMap.addAttribute("user", null);
+            }
         }
         return "index";
     }

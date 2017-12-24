@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { handleVkLogin } from "../../../core/api/vk-service";
 import { connect } from 'react-redux'
 import { isEqual, isEmpty } from 'lodash'
 import NonAuthorizedContent from "./NonAuthorizedContent";
@@ -14,7 +13,7 @@ class Dashboard extends Component {
 
   initState() {
     return {
-      authorized: false
+      authorized: !isEmpty(this.props.userData)
     }
   }
 
@@ -24,16 +23,9 @@ class Dashboard extends Component {
     }
   }
 
-  componentWillMount() {
-  }
-
-  handleAuth() {
-    handleVkLogin()
-  }
-
   renderAuthorizedContent() {
     console.log(this.props)
-    let username = this.props.userData.first_name
+    let username = this.props.userData.name
     return (
       <div className="dashboard-authorized">
         <h3>Добро пожаловать, {username}</h3>
@@ -44,7 +36,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard">
-        { !this.state.authorized && <NonAuthorizedContent handleAuthCallback={this.handleAuth}/> }
+        { !this.state.authorized && <NonAuthorizedContent/> }
         { this.state.authorized && this.renderAuthorizedContent() }
       </div>
     )
@@ -52,5 +44,5 @@ class Dashboard extends Component {
 }
 
 export default connect(state => ({
-  userData: state.vkUserData.userData,
+  userData: state.vkUserData.startUserData,
 }))(Dashboard)

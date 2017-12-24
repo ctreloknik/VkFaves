@@ -6,6 +6,18 @@ import * as FavesActions from '../../reducers/faves/actions'
 const { VK } = window
 const FETCH_FAVES_METHOD = 'fave.getPosts'
 
+/**
+ * Инициализация пользовательских данных. Если юзер уже авторизован, на сервере в страницу уже добавились токен и id юзера
+ */
+export function initUserData() {
+  const data = window.primaryUserData // используем глобальные константы, которые УЖЕ отрендерены в шаблоне .ftl
+  if (data && data.vkToken && data.vkUserId) {
+    store.dispatch({ payload: data, type: VkAuthActions.VK_TOKEN_RECEIVE }) //eslint-disable-line
+    return true
+  }
+  return false
+}
+
 export function handleVkLogin() {
   store.dispatch({ type: VkAuthActions.VK_AUTH_REQUEST })
   try {
