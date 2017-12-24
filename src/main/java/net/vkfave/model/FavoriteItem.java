@@ -1,9 +1,16 @@
 package net.vkfave.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * Сущность, описывающая избранную запись
@@ -15,7 +22,9 @@ public class FavoriteItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @Column(name = "vk_id")
+    private Long vkId;
+    
     private String name;
 
     @Column(name = "inner_text")
@@ -33,7 +42,7 @@ public class FavoriteItem implements Serializable {
     private Album album;
     
     @ManyToMany(mappedBy = "faveItems")
-    private Set<Tag> tags;
+    private List<Tag> tags;
 
     public FavoriteItem() {
     }
@@ -53,6 +62,14 @@ public class FavoriteItem implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getVkId() {
+		return vkId;
+	}
+
+	public void setVkId(Long vkId) {
+		this.vkId = vkId;
 	}
 
 	public String getName() {
@@ -95,7 +112,15 @@ public class FavoriteItem implements Serializable {
 		this.album = album;
 	}
 
-    @Override
+    public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	@Override
     public String toString() {
         return "FavoriteItem{" +
                 "id=" + id +

@@ -16,7 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
@@ -53,7 +53,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
 		try {
 			User user = userService.getUserById(id);

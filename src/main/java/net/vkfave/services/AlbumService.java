@@ -23,17 +23,20 @@ public class AlbumService {
         return albumRepository.findOne(id);
     }
 
-    public Album insertAlbum(AlbumDto albumDto) {
+    public AlbumDto insertAlbum(AlbumDto albumDto) {
     	Album album = new Album();
     	album.setName(albumDto.getName());
     	album.setUser(userRepository.findOne(albumDto.getUserId()));
-        return albumRepository.save(album);
+    	album = albumRepository.save(album);
+    	albumDto.setId(album.getId());
+        return albumDto;
     }
 
-    public Album updateAlbum(AlbumDto albumDto, Long id) {
-    	Album album = albumRepository.findOne(id);
+    public AlbumDto updateAlbum(AlbumDto albumDto) {
+    	Album album = albumRepository.findOne(albumDto.getId());
     	album.setName(albumDto.getName());
-    	return albumRepository.save(album);
+    	albumRepository.save(album);
+    	return albumDto;
     }
 
     public void deleteAlbum(Long id) {

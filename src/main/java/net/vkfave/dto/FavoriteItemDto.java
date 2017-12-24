@@ -1,43 +1,51 @@
 package net.vkfave.dto;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO для избранных записей
  */
 public class FavoriteItemDto implements Serializable {
-    private Long id;
+	private Long id;
+	
+	private Long vkId;
 
-    @NotNull
-    private String name;
+	private String name;
 
-    private String text;
-    
-    private String imageUrl;
-    
-    private Long userId;
-    
-    private Long albumId;
+	private String text;
 
-    public FavoriteItemDto() {
-    }
+	private String imageUrl;
 
-    public FavoriteItemDto(String name, Long  userId, 
-    		Long albumId, String text, String imageUrl) {
-    	this.name = name;
-    	this.userId = userId; 
+	private Long albumId;
+
+	private List<TagDto> tags;
+
+	public FavoriteItemDto() {
+	}
+
+	public FavoriteItemDto(String name, Long albumId, String text,
+			String imageUrl) {
+		this.name = name;
 		this.albumId = albumId;
 		this.text = text;
 		this.imageUrl = imageUrl;
-    }
+	}
 
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getVkId() {
+		return vkId;
+	}
+
+	public void setVId(Long vkId) {
+		this.vkId = vkId;
 	}
 
 	public String getName() {
@@ -64,31 +72,26 @@ public class FavoriteItemDto implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public Long getUser() {
-		return userId;
-	}
-
-	public void setUser(Long userId) {
-		this.userId = userId;
-	}
-
-	public Long  getAlbum() {
+	public Long getAlbumId() {
 		return albumId;
 	}
 
-	public void setAlbum(Long albumId) {
+	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
 
-    @Override
-    public String toString() {
-        return "FavoriteItemDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", text='" + text + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", userId=" + userId +
-                ", albumId=" + albumId +
-                '}';
-    }
+	public List<TagDto> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagDto> tags) {
+		this.tags = tags;
+	}
+
+	@Override
+	public String toString() {
+		return "FavoriteItemDto{" + "id=" + id + ", name='" + name + '\''
+				+ ", text='" + text + '\'' + ", imageUrl='" + imageUrl + '\''
+				+ ", albumId=" + albumId + '}';
+	}
 }

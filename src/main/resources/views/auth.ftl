@@ -24,7 +24,7 @@
         VK.Auth.login(function (response) {
             var user = response.session.user
             axios({
-                url: '/api/auth',
+                url: '/api/user/auth',
                 method: 'PUT',
                 data: JSON.stringify({
                     token: token,
