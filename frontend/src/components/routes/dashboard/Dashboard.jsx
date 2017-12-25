@@ -24,7 +24,6 @@ class Dashboard extends Component {
   }
 
   renderAuthorizedContent() {
-    console.log(this.props)
     let username = this.props.userData.name
     return (
       <div className="dashboard-authorized">

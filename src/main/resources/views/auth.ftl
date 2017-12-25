@@ -21,22 +21,18 @@
         var userId = ( parts.find(function (part) {
             return /user_id/.test(part)
         }) || '' ).split("=")[1]
-        VK.Auth.login(function (response) {
-            var user = response.session.user
-            axios({
-                url: '/api/user/auth',
-                method: 'PUT',
-                data: JSON.stringify({
-                    token: token,
-                    vkId: userId,
-                    name: user.first_name + ' ' + user.last_name
-                }),
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(function () {
-                window.location.replace('/?accessToken=' + token + '&vkUserId=' + userId)
-            })
-        }, 2)
+        axios({
+            url: '/api/user/auth',
+            method: 'PUT',
+            data: JSON.stringify({
+                token: token,
+                vkId: userId
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(function () {
+            window.location.replace('/?accessToken=' + token + '&vkUserId=' + userId)
+        })
     }
 </script>
 </body>

@@ -18,8 +18,6 @@
         window.primaryUserData = {
           vkToken:  '${user.token}',
           vkUserId: '${user.vkId}',
-          name: '${user.name}',
-          id: '${user.id}'
         }
       </#if>
       window.onload = function () {

@@ -3,6 +3,9 @@ package net.vkfave.controllers;
 import net.vkfave.dto.UserDto;
 import net.vkfave.model.User;
 import net.vkfave.services.UserService;
+import net.vkfave.services.exception.UserValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import java.util.List;
  */
 @Controller
 public class MainController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
     private static final String AUTH_PAGE = "/auth";
 
     @Autowired
@@ -39,7 +43,11 @@ public class MainController {
             try {
                 User currentUser = userService.checkUser(accessToken, vkUserId);
                 modelMap.addAttribute("user", new UserDto(currentUser));
+            } catch (UserValidationException e) {
+                LOGGER.error("Ошибка валидации пользователя", e);
+                modelMap.addAttribute("user", null);
             } catch (Exception e) {
+                LOGGER.error("Ошибка", e);
                 modelMap.addAttribute("user", null);
             }
         }

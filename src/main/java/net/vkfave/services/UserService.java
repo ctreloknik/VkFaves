@@ -3,7 +3,7 @@ package net.vkfave.services;
 import net.vkfave.dto.UserDto;
 import net.vkfave.model.User;
 import net.vkfave.repositories.UserRepository;
-import net.vkfave.services.exception.UserNotValidException;
+import net.vkfave.services.exception.UserValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,18 +47,18 @@ public class UserService {
      * Метод валидации пользователя (!). Используется во всех (?!) методах API
      * @param accessToken токен
      * @param vkId ID пользователя ВК
-     * @throws UserNotValidException Исключение валидации пользователя
+     * @throws UserValidationException Исключение валидации пользователя
      */
-    public User checkUser(String accessToken, Long vkId) throws UserNotValidException {
+    public User checkUser(String accessToken, Long vkId) throws UserValidationException {
         if (StringUtils.isEmpty(accessToken) || vkId == null) {
-            throw new UserNotValidException("Cookie-параметры accessToken и vkId не должны быть пустыми");
+            throw new UserValidationException("Cookie-параметры accessToken и vkId не должны быть пустыми");
         }
         User user = userRepository.findByVkId(vkId);
         if (user == null) {
-            throw new UserNotValidException("Пользователь [id=" + vkId + "] не найден");
+            throw new UserValidationException("Пользователь [id=" + vkId + "] не найден");
         }
         if (!accessToken.equals(user.getToken())) {
-            throw new UserNotValidException("Некорректное значение токена доступа для пользователя [id=" + vkId + "]");
+            throw new UserValidationException("Некорректное значение токена доступа для пользователя [id=" + vkId + "]");
         }
         return user;
     }
