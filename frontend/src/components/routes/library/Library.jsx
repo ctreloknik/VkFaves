@@ -15,34 +15,12 @@ class Library extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props, nextProps) && !isEmpty(nextProps.userData)) {
-      this.setState({ authorized: true })
-    }
-  }
-
   componentWillMount() {
-  }
-
-  handleAuth() {
-    handleVkLogin()
-  }
-
-  renderAuthorizedContent() {
-    console.log(this.props)
-    let username = this.props.userData.first_name
-    return (
-      <div className="dashboard-authorized">
-        <h3>Добро пожаловать, {username}</h3>
-      </div>
-    )
   }
 
   render() {
     return (
-      <div className="dashboard">
-        { !this.state.authorized && <NonAuthorizedContent handleAuthCallback={this.handleAuth}/> }
-        { this.state.authorized && this.renderAuthorizedContent() }
+      <div className="library">
       </div>
     )
   }
@@ -50,4 +28,4 @@ class Library extends Component {
 
 export default connect(state => ({
   userData: state.vkUserData.userData,
-}))(Dashboard)
+}))(Library)

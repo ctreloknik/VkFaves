@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Jumbotron } from 'react-bootstrap'
 
-const tokenVkAddr = `https://oauth.vk.com/authorize?client_id=6226858&
+const tokenVkAddr = `https://oauth.vk.com/authorize?
+client_id=6226858&
 display=page&
 redirect_uri=https://vk-faves.herokuapp.com/auth&
 scope=friends,offline&

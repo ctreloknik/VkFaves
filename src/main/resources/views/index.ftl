@@ -18,12 +18,14 @@
         window.primaryUserData = {
           vkToken:  '${user.token}',
           vkUserId: '${user.vkId}',
+          name: '${user.name}',
+          id: '${user.id}'
         }
       </#if>
       window.onload = function () {
         VK.init({ apiId: ${vkAppId} })
       }
     </script>
-    <script type="text/javascript" src="/static/js/main.8efcb4ce.js"></script>
+    <script type="text/javascript" src="/static/js/main.3f3a9d2a.js"></script>
 </body>
 </html>
