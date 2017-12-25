@@ -1,8 +1,9 @@
 package net.vkfave.dto;
 
-import net.vkfave.model.User;
-
 import java.io.Serializable;
+import java.util.List;
+
+import net.vkfave.model.User;
 
 /**
  * DTO для пользователей
@@ -12,6 +13,7 @@ public class UserDto implements Serializable {
     private String name;
     private Long vkId;
     private String token;
+    private List<TokenDto> tokens;
     
     public UserDto() { }
 
@@ -58,4 +60,12 @@ public class UserDto implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
+	public List<TokenDto> getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(List<TokenDto> tokens) {
+		this.tokens = tokens;
+	}
 }

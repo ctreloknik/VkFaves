@@ -1,8 +1,10 @@
 package net.vkfave.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Сущность, описывающая избранную запись
@@ -43,6 +46,9 @@ public class FavoriteItem implements Serializable {
     
     @ManyToMany(mappedBy = "faveItems")
     private List<Tag> tags;
+    
+	@OneToMany(mappedBy = "fave", cascade = CascadeType.ALL)
+	private List<Image> images = new ArrayList<>();
 
     public FavoriteItem() {
     }
@@ -118,6 +124,14 @@ public class FavoriteItem implements Serializable {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	@Override
