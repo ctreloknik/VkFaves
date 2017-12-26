@@ -24,9 +24,6 @@ public class User implements Serializable {
 	@Column(name = "vk_id", nullable = false)
 	private Long vkId;
 
-	@Column(name = "token", nullable = false)
-	private String token;
-
 	@Column(name = "last_auth_date")
 	private Date lastAuthDate;
 
@@ -69,14 +66,6 @@ public class User implements Serializable {
 
 	public void setVkId(Long vkId) {
 		this.vkId = vkId;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	public List<Album> getAlbums() {

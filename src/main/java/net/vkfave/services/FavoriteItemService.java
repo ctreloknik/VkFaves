@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.vkfave.dto.FavoriteItemDto;
+import net.vkfave.dto.ImageDto;
 import net.vkfave.dto.TagDto;
 import net.vkfave.model.FavoriteItem;
+import net.vkfave.model.Image;
 import net.vkfave.model.Tag;
 import net.vkfave.model.User;
 import net.vkfave.repositories.AlbumRepository;
@@ -33,6 +35,8 @@ public class FavoriteItemService {
     @Autowired
     private UserRepository userRepository;
     
+    // Tags converters
+    
     private TagDto getTagDtoFromTag(Tag tag) {
     	TagDto dto = new TagDto();
     	dto.setId(tag.getId());
@@ -47,6 +51,40 @@ public class FavoriteItemService {
     	}
     	return tagsDto;
     }
+    
+    // Images converters
+    
+    private ImageDto getImageDtoFromImage(Image image) {
+    	ImageDto dto = new ImageDto();
+    	dto.setId(image.getId());
+    	dto.setUrl(image.getUrl());
+    	return dto;
+    }
+    
+    private List<ImageDto> getImagesDtoFromImages(List<Image> images) {
+    	List<ImageDto> imagesDto = new ArrayList<ImageDto>();
+    	for (Image image : images) {
+    		imagesDto.add(getImageDtoFromImage(image));
+    	}
+    	return imagesDto;
+    }
+    
+    private Image getImageFromImageDto(ImageDto dto) {
+    	Image image = new Image();
+    	image.setId(dto.getId());
+    	image.setUrl(dto.getUrl());
+    	return image;
+    }
+    
+    private List<Image> getImagesFromImageDtos(List<ImageDto> imageDtos) {
+    	List<Image> images = new ArrayList<Image>();
+    	for (ImageDto imageDto : imageDtos) {
+    		images.add(getImageFromImageDto(imageDto));
+    	}
+    	return images;
+    }
+    
+    // Service methods
 
     public List<FavoriteItemDto> getFaves(List<FavoriteItemDto> itemDtos, Long userId) {
     	User user = userRepository.findOne(userId);
@@ -58,7 +96,7 @@ public class FavoriteItemService {
     			FavoriteItem newItem = new FavoriteItem();
             	newItem.setVkId(itemDto.getVkId());
             	newItem.setText(itemDto.getText());
-            	newItem.setImageUrl(itemDto.getImageUrl());
+            	newItem.setImages(getImagesFromImageDtos(itemDto.getImages()));
             	newItem.setUser(user);
             	newItem = faveItemRepository.save(newItem);
             	itemDto.setId(newItem.getId());
@@ -66,6 +104,7 @@ public class FavoriteItemService {
     			// если пост есть, то требуется обновить данные о нем
     			itemDto.setId(item.getId());
     			itemDto.setTags(getTagsDtoFromTags(item.getTags()));
+    			itemDto.setImages(getImagesDtoFromImages(item.getImages()));
     		}
     	}
     	return itemDtos;
@@ -81,7 +120,8 @@ public class FavoriteItemService {
     public TagDto createTag(TagDto dto, Long faveItemId) {
     	User user = userRepository.findOne(dto.getUserId());
     	Tag newTag = new Tag(dto.getName(), user);
-    	tagRepository.save(newTag);
+    	newTag = tagRepository.save(newTag);
+    	dto.setId(newTag.getId());
     	
     	FavoriteItem fave = faveItemRepository.getOne(faveItemId);
     	fave.getTags().add(newTag);
@@ -98,7 +138,8 @@ public class FavoriteItemService {
     			break;
     		}
     	}
-    	// сделать (вспомнить) так, чтобы удалялось без метода save
+    	fave.setTags(tags);
+    	faveItemRepository.save(fave);
     }
 
     public void deleteFaveItem(Long id) {

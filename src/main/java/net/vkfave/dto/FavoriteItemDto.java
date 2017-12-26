@@ -8,28 +8,38 @@ import java.util.List;
  */
 public class FavoriteItemDto implements Serializable {
 	private Long id;
-	
+
 	private Long vkId;
 
 	private String name;
 
 	private String text;
 
-	private String imageUrl;
-
 	private Long albumId;
 
 	private List<TagDto> tags;
 
+	private List<ImageDto> images;
+
 	public FavoriteItemDto() {
 	}
 
-	public FavoriteItemDto(String name, Long albumId, String text,
-			String imageUrl) {
+	public FavoriteItemDto(String name, Long albumId, String text) {
 		this.name = name;
 		this.albumId = albumId;
 		this.text = text;
-		this.imageUrl = imageUrl;
+	}
+
+	public List<ImageDto> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ImageDto> images) {
+		this.images = images;
+	}
+
+	public void setVkId(Long vkId) {
+		this.vkId = vkId;
 	}
 
 	public Long getId() {
@@ -64,14 +74,6 @@ public class FavoriteItemDto implements Serializable {
 		this.text = text;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public Long getAlbumId() {
 		return albumId;
 	}
@@ -91,7 +93,6 @@ public class FavoriteItemDto implements Serializable {
 	@Override
 	public String toString() {
 		return "FavoriteItemDto{" + "id=" + id + ", name='" + name + '\''
-				+ ", text='" + text + '\'' + ", imageUrl='" + imageUrl + '\''
-				+ ", albumId=" + albumId + '}';
+				+ ", text='" + text + '\'' + ", albumId=" + albumId + '}';
 	}
 }

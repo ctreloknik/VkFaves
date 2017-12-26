@@ -40,19 +40,19 @@ public class UserController {
         }
     }
 
-	@PostMapping("/register")
-	public ResponseEntity<UserDto> registerNewUser(@RequestBody UserDto userDto) {
-		try {
-			User newUser = userService.insertUser(userDto);
-			LOGGER.info("Добавлен новый пользователь", newUser);
-			userDto.setId(newUser.getId());
-			return ResponseEntity.ok(userDto);
-		} catch (Exception e) {
-			LOGGER.error("Ошибка при попытке добавления нового пользователя", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.build();
-		}
-	}
+//	@PostMapping("/register")
+//	public ResponseEntity<UserDto> registerNewUser(@RequestBody UserDto userDto) {
+//		try {
+//			User newUser = userService.insertUser(userDto);
+//			LOGGER.info("Добавлен новый пользователь", newUser);
+//			userDto.setId(newUser.getId());
+//			return ResponseEntity.ok(userDto);
+//		} catch (Exception e) {
+//			LOGGER.error("Ошибка при попытке добавления нового пользователя", e);
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//					.build();
+//		}
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {

@@ -33,9 +33,6 @@ public class FavoriteItem implements Serializable {
     @Column(name = "inner_text")
     private String text;
     
-    @Column(name = "image_url")
-    private String imageUrl;
-    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -54,12 +51,11 @@ public class FavoriteItem implements Serializable {
     }
 
     public FavoriteItem(String name, User user,
-                        Album album, String text, String imageUrl) {
+                        Album album, String text) {
     	this.name = name;
     	this.user = user; 
 		this.album = album;
 		this.text = text;
-		this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -92,14 +88,6 @@ public class FavoriteItem implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
 	}
 
 	public User getUser() {
@@ -140,7 +128,6 @@ public class FavoriteItem implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 ", user=" + user.getId() +
                 ", album=" + album +
                 '}';
