@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../../store'
 
 const API_URL = `${process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : `http://${window.location.host}`}/api`
 const VK_API_URL = 'https://api.vk.com/method'
@@ -33,6 +34,7 @@ export function invokeApi({ path, params, method, payload, onSuccess, onFailure 
 }
 
 export function invokeVkApi({ path, params, method, payload, onSuccess, onFailure }) {
-  const vkApiPath = `${VK_API_URL}/${path}`
+  const token = store.getState().vkUserData.startUserData.vkToken
+  const vkApiPath = `${VK_API_URL}/${path}?access_token=${token}`
   return api({ path: vkApiPath, params, method, payload, onSuccess, onFailure })
 }

@@ -36,7 +36,9 @@ export function handleVkLogin() {
 export function fetchFaves(offset = 0) {
   store.dispatch({ type: FavesActions.FAVES_FETCH_REQUEST })
   const params = { offset }
-  const onSuccess = response => store.dispatch({ payload: response, type: FavesActions.FAVES_FETCH_SUCCESS })
+  const onSuccess = response => store.dispatch({ payload: response.response, type: FavesActions.FAVES_FETCH_SUCCESS })
   const onFailure = response => store.dispatch({ payload: response, type: FavesActions.FAVES_FETCH_FAILURE })
   invokeVkApi({ path: FETCH_FAVES_METHOD, params, method: RequestMethod.GET, payload: null, onSuccess, onFailure })
 }
+
+window.ff = fetchFaves

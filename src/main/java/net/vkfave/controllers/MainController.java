@@ -36,6 +36,7 @@ public class MainController {
     @RequestMapping("/")
     public String indexPageRequestMapper(@RequestParam(name = "accessToken", required = false) String accessToken,
                                          @RequestParam(name = "vkUserId",    required = false) Long vkUserId,
+                                         @RequestParam(name = "devMode", required = false) String devMode,
                                          ModelMap modelMap, HttpServletRequest request) {
         modelMap.addAttribute("vkAppId", vkAppId);
         String referer = request.getHeader("Referer");
@@ -50,6 +51,9 @@ public class MainController {
                 LOGGER.error("Ошибка", e);
                 modelMap.addAttribute("user", null);
             }
+        }
+        if (devMode != null) {
+            modelMap.addAttribute("devMode", true);
         }
         return "index";
     }

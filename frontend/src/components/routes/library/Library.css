@@ -1,0 +1,15 @@
+.fave-item {
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+}
+
+.fave-image {
+    text-align: center;
+}
+
+.fave-paragraph {
+    line-height: .6em;
+    margin: .8em;
+}
