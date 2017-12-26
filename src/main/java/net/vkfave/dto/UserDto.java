@@ -22,7 +22,7 @@ public class UserDto implements Serializable {
         this.vkId = vkId;
     }
 
-    public UserDto(User user) {
+	public UserDto(User user) {
         this.name = user.getName();
         this.vkId = user.getVkId();
         this.id = user.getId();
