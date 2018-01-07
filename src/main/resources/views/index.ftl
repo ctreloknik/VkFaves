@@ -10,7 +10,6 @@
     <link href="/static/css/main.80249939.css" rel="stylesheet">
 </head>
 <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
     <script type="text/javascript">

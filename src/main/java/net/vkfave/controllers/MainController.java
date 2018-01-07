@@ -40,7 +40,7 @@ public class MainController {
                                          ModelMap modelMap, HttpServletRequest request) {
         modelMap.addAttribute("vkAppId", vkAppId);
         String referer = request.getHeader("Referer");
-        if (referer != null && referer.contains(AUTH_PAGE)) {
+        //if (referer != null && referer.contains(AUTH_PAGE)) {
             try {
                 User currentUser = userService.checkUser(accessToken, vkUserId);
                 modelMap.addAttribute("user", new UserDto(currentUser));
@@ -51,7 +51,6 @@ public class MainController {
                 LOGGER.error("Ошибка", e);
                 modelMap.addAttribute("user", null);
             }
-        }
         if (devMode != null) {
             modelMap.addAttribute("devMode", true);
         }
