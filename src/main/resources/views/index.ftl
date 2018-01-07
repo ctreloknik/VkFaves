@@ -26,11 +26,11 @@
         VK.init({ apiId: ${vkAppId} })
       }
     </script>
-    <#if devMode??>
+    <#--<#if devMode??>
         <script type="text/javascript" src="http://localhost:3000/static/js/bundle.js"></script>
-    <#else>
+    <#else>-->
         <script type="text/javascript" src="/static/js/main.4500d526.js"></script>
-    </#if>
+    <#--</#if>-->
 
 </body>
 </html>
