@@ -15,11 +15,12 @@
     <script type="text/javascript">
       <#if user??>
         window.primaryUserData = {
-          vkToken:  '${user.token}',
+          vkToken: '${accessToken}',
           vkUserId: '${user.vkId}',
           name: '${user.name}',
           id: '${user.id}'
         }
+        window.localStorage.setItem('vkToken', primaryUserData.vkToken)
       </#if>
       window.onload = function () {
         VK.init({ apiId: ${vkAppId} })

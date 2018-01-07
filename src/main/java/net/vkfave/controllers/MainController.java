@@ -44,6 +44,7 @@ public class MainController {
             try {
                 User currentUser = userService.checkUser(accessToken, vkUserId);
                 modelMap.addAttribute("user", new UserDto(currentUser));
+                modelMap.addAttribute("accessToken", accessToken);
             } catch (UserValidationException e) {
                 LOGGER.error("Ошибка валидации пользователя", e);
                 modelMap.addAttribute("user", null);
