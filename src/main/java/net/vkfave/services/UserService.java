@@ -38,21 +38,18 @@ public class UserService {
 	public User createOrUpdateUser(UserDto userDto) {
 		User existingUser = userRepository.findByVkId(userDto.getVkId());
 		if (existingUser == null) {
-			User newUser = new User();
-			newUser.setVkId(userDto.getVkId());
-			newUser.setName(userDto.getName());
-			newUser.setLastAuthDate(new Date());
-			newUser = userRepository.save(newUser);
-			
-			Token token = new Token(userDto.getToken(), newUser);
-			tokenRepository.save(token);
-			return newUser;
+			existingUser = new User();
+			existingUser.setVkId(userDto.getVkId());
+			existingUser.setName(userDto.getName());
 		}
-//		if (!existingUser.getToken().equals(userDto.getToken())) {
-//			existingUser.setToken(userDto.getToken());
-//		}
+
 		existingUser.setLastAuthDate(new Date());
-		return userRepository.save(existingUser);
+		existingUser = userRepository.save(existingUser);
+		
+		Token token = new Token(userDto.getToken(), existingUser);
+		tokenRepository.save(token);
+		
+		return existingUser;
 	}
 
 	/**

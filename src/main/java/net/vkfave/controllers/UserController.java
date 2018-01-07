@@ -54,8 +54,23 @@ public class UserController {
 //		}
 //	}
 
+	@GetMapping("/test")
+	public ResponseEntity<UserDto> getUserById(@RequestParam Long vkid, @RequestParam String name, @RequestParam String token) {
+		try {
+			LOGGER.info("Запрос на аутентификацию пользователя {}. Токен: {}", name, token);
+			UserDto test = new UserDto(name, vkid);
+			test.setToken(token);
+			
+            UserDto result = new UserDto(userService.createOrUpdateUser(test));
+			return ResponseEntity.ok(result);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.build();
+		}
+	}
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+	public ResponseEntity<UserDto> test(@PathVariable Long id) {
 		try {
 			User user = userService.getUserById(id);
 			UserDto userDto = new UserDto(user.getName(), user.getVkId());
